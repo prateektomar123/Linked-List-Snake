@@ -158,6 +158,8 @@
     <ClInclude Include="include\Level\LevelData.h" />
     <ClInclude Include="include\Level\LevelModel.h" />
     <ClInclude Include="include\Level\LevelNumber.h" />
+    <ClInclude Include="include\Player\PlayerService.h" />
+    <ClInclude Include="include\Player\SnakeController.h" />
     <ClInclude Include="include\UI\LevelSelection\LevelSelectionUIController.h" />
     <ClInclude Include="include\Level\LevelService.h" />
     <ClInclude Include="include\Level\LevelView.h" />
@@ -184,6 +186,8 @@
     <ClInclude Include="source\Level\LevelModel.cpp" />
     <ClInclude Include="source\Level\LevelService.cpp" />
     <ClInclude Include="source\Level\LevelView.cpp" />
+    <ClInclude Include="source\Player\PlayerService.cpp" />
+    <ClInclude Include="source\Player\SnakeController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
