@@ -1,5 +1,7 @@
 #include "Level/LevelService.h"
 #include "Level/LevelController.h"
+#include "Global/ServiceLocator.h"
+#include "Level/LevelModel.h"
 
 namespace Level
 {
@@ -11,7 +13,10 @@ namespace Level
 
 		createLevelController();
 	}
-
+	void LevelService::spawnPlayer()
+	{
+		ServiceLocator::getInstance()->getPlayerService()->spawnPlayer();
+	}
 	LevelService::~LevelService()
 	{
 		destroy();
