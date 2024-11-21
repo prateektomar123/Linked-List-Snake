@@ -69,6 +69,9 @@
     <ClCompile Include="source\Time\TimeService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\UI\LevelSelection\LevelSelectionUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Main\GameService.h">
@@ -156,6 +159,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Level\LevelNumber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI\LevelSelection\LevelSelectionUIController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
