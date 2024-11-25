@@ -18,6 +18,7 @@ namespace Player
 	{
 	private:
 		const int initial_snake_length = 10;
+		const float movement_frame_duration = 0.1f;
 
 		SnakeState current_snake_state;
 
@@ -26,7 +27,7 @@ namespace Player
 		Direction current_snake_direction;
 
 		LinkedList::SingleLinkedList* single_linked_list;
-
+		float elapsed_duration;
 		void createLinkedList();
 		void processPlayerInput();
 		void updateSnakeDirection();
@@ -42,6 +43,7 @@ namespace Player
 
 		void initialize();
 		void update();
+		void delayedUpdate();
 		void render();
 
 		void spawnSnake();
