@@ -18,6 +18,10 @@ namespace LinkedList
 
 		Node* createNode();
 
+		sf::Vector2i getNewNodePosition(Node* reference_node);
+
+		void insertNodeAtTail();
+
 		void createHeadNode();
 
 	public:
