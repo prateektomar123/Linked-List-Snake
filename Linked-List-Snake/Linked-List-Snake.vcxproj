@@ -135,7 +135,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\Player\BodyPart.cpp" />
-    <ClCompile Include="source\Player\Node.cpp" />
     <ClCompile Include="source\UI\LevelSelection\LevelSelectionUIController.cpp" />
     <ClCompile Include="source\Time\TimeService.cpp" />
     <ClCompile Include="source\UI\Credits\CreditsScreenUIController.cpp" />
@@ -160,8 +159,8 @@
     <ClInclude Include="include\Level\LevelData.h" />
     <ClInclude Include="include\Level\LevelModel.h" />
     <ClInclude Include="include\Level\LevelNumber.h" />
+    <ClInclude Include="include\LinkedList\SingleLinkedList.h" />
     <ClInclude Include="include\Player\BodyPart.h" />
-    <ClInclude Include="include\Player\Node.h" />
     <ClInclude Include="include\Player\PlayerService.h" />
     <ClInclude Include="include\Player\SnakeController.h" />
     <ClInclude Include="include\UI\LevelSelection\LevelSelectionUIController.h" />
@@ -190,6 +189,8 @@
     <ClInclude Include="source\Level\LevelModel.cpp" />
     <ClInclude Include="source\Level\LevelService.cpp" />
     <ClInclude Include="source\Level\LevelView.cpp" />
+    <ClInclude Include="source\LinkedList\Node.cpp" />
+    <ClInclude Include="source\LinkedList\SingleLinkedList.cpp" />
     <ClInclude Include="source\Player\PlayerService.cpp" />
     <ClInclude Include="source\Player\SnakeController.cpp" />
   </ItemGroup>

@@ -4,6 +4,7 @@
 
 namespace Player
 {
+	using namespace Event;
 	using namespace LinkedList;
 	using namespace Global;
 	using namespace Level;
@@ -54,7 +55,27 @@ namespace Player
 		single_linked_list->render();
 	}
 
-	void SnakeController::processPlayerInput() { }
+	void SnakeController::processPlayerInput()
+	{
+		EventService* event_service = ServiceLocator::getInstance()->getEventService();
+
+		if (event_service->pressedUpArrowKey() && current_snake_direction != Direction::DOWN)
+		{
+			current_snake_direction = Direction::UP;
+		}
+		else if (event_service->pressedDownArrowKey() && current_snake_direction != Direction::UP)
+		{
+			current_snake_direction = Direction::DOWN;
+		}
+		else if (event_service->pressedLeftArrowKey() && current_snake_direction != Direction::RIGHT)
+		{
+			current_snake_direction = Direction::LEFT;
+		}
+		else if (event_service->pressedRightArrowKey() && current_snake_direction != Direction::LEFT)
+		{
+			current_snake_direction = Direction::RIGHT;
+		}
+	}
 
 	void SnakeController::updateSnakeDirection() { }
 
