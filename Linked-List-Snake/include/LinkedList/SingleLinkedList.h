@@ -18,6 +18,8 @@ namespace LinkedList
 
 		Node* createNode();
 
+		void createHeadNode();
+
 	public:
 		SingleLinkedList();
 		~SingleLinkedList();
