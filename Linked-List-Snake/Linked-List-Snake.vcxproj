@@ -155,6 +155,9 @@
     <ClCompile Include="source\UI\UIElement\UIView.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Element\ElementData.h" />
+    <ClInclude Include="include\Element\ElementService.h" />
+    <ClInclude Include="include\Element\Obstacle.h" />
     <ClInclude Include="include\Level\LevelController.h" />
     <ClInclude Include="include\Level\LevelData.h" />
     <ClInclude Include="include\Level\LevelModel.h" />
@@ -184,6 +187,8 @@
     <ClInclude Include="include\UI\UIElement\TextView.h" />
     <ClInclude Include="include\UI\UIService.h" />
     <ClInclude Include="include\UI\UIElement\UIView.h" />
+    <ClInclude Include="source\Element\ElementService.cpp" />
+    <ClInclude Include="source\Element\Obstacle.cpp" />
     <ClInclude Include="source\Level\LevelController.cpp" />
     <ClInclude Include="source\Level\LevelData.cpp" />
     <ClInclude Include="source\Level\LevelModel.cpp" />

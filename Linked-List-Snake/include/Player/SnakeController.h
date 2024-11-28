@@ -32,7 +32,7 @@ namespace Player
 		const sf::Vector2i default_position = sf::Vector2i(25, 13);
 		const Direction default_direction = Direction::RIGHT;
 		Direction current_snake_direction;
-
+		InputState current_input_state;
 
 		float restart_counter;
 
