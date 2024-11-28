@@ -25,12 +25,7 @@ namespace Player
 		void createBodyPartImage();
 		void initializeBodyPartImage();
 
-		sf::Vector2i getNextPositionDown();
-
-		sf::Vector2i getNextPositionUp();
-		sf::Vector2i getNextPositionRight();
-		sf::Vector2i getNextPositionLeft();
-		sf::Vector2i getNextPosition();
+		
 
 		void destroy();
 
@@ -44,6 +39,12 @@ namespace Player
 
 		Direction getDirection();
 		sf::Vector2i getPosition();
+		sf::Vector2i getNextPosition();
+		sf::Vector2i getNextPositionDown();
+
+		sf::Vector2i getNextPositionUp();
+		sf::Vector2i getNextPositionRight();
+		sf::Vector2i getNextPositionLeft();
 		void setDirection(Direction new_direction);
 
 		void setPosition(sf::Vector2i position);
