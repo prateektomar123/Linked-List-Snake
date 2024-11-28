@@ -1,135 +1,47 @@
-#include "Player/BodyPart.h"
-#include "Global/ServiceLocator.h"
-#include "Level/LevelView.h"
-#include "Level/LevelModel.h"
-#include "Global/Config.h"
+#include "Player/PlayerService.h"
+#include "Player/SnakeController.h"
 
 namespace Player
 {
-	using namespace Global;
-	using namespace Level;
-	using namespace UI::UIElement;
-
-	BodyPart::BodyPart()
+	PlayerService::PlayerService()
 	{
-		grid_position = sf::Vector2i(0, 0);
-		createBodyPartImage();
+		snake_controller = nullptr;
+
+		createController();
 	}
 
-	BodyPart::~BodyPart()
+	PlayerService::~PlayerService()
 	{
 		destroy();
 	}
 
-	void BodyPart::initialize(float width, float height, sf::Vector2i pos, Direction dir)
+	void PlayerService::createController()
 	{
-		bodypart_width = width;
-		bodypart_height = height;
-		direction = dir;
-		grid_position = pos;
-
-		initializeBodyPartImage();
+		snake_controller = new SnakeController();
 	}
 
-	void BodyPart::initializeBodyPartImage()
+	void PlayerService::initialize()
 	{
-		bodypart_image->initialize(Config::snake_body_texture_path, bodypart_width, bodypart_height, getBodyPartScreenPosition());
-		bodypart_image->setOriginAtCentre();
+		snake_controller->initialize();
 	}
 
-	sf::Vector2f BodyPart::getBodyPartScreenPosition()
+	void PlayerService::update()
 	{
-		float x_screen_position = LevelView::border_offset_left + (grid_position.x * bodypart_width) + (bodypart_width / 2);
-		float y_screen_position = LevelView::border_offset_top + (grid_position.y * bodypart_height) + (bodypart_height / 2);
-
-		return sf::Vector2f(x_screen_position, y_screen_position);
+		snake_controller->update();
 	}
 
-	void BodyPart::createBodyPartImage()
+	void PlayerService::render()
 	{
-		bodypart_image = new ImageView();
-	}
-	float BodyPart::getRotationAngle()
-	{
-		switch (direction)
-		{
-		case Direction::UP:
-			return 270.f;
-		case Direction::DOWN:
-			return 90.f;
-		case Direction::RIGHT:
-			return 0;
-		case Direction::LEFT:
-			return 180.f;
-		}
+		snake_controller->render();
 	}
 
-	void BodyPart::setDirection(Direction direction)
+	void PlayerService::spawnPlayer()
 	{
-		this->direction = direction;
-	}
-	void BodyPart::setPosition(sf::Vector2i position)
-	{
-		grid_position = position;
-	}
-	sf::Vector2i BodyPart::getNextPosition()
-	{
-		switch (direction)
-		{
-		case Direction::UP:
-			return getNextPositionUp();
-		case Direction::DOWN:
-			return getNextPositionDown();
-		case Direction::RIGHT:
-			return getNextPositionRight();
-		case Direction::LEFT:
-			return getNextPositionLeft();
-		default:
-			return grid_position;
-		}
+		snake_controller->spawnSnake();
 	}
 
-	sf::Vector2i BodyPart::getNextPositionDown()
+	void PlayerService::destroy()
 	{
-		return sf::Vector2i(grid_position.x, (grid_position.y + 1) % (LevelModel::number_of_rows));
-	}
-
-	sf::Vector2i BodyPart::getNextPositionUp()
-	{
-		return sf::Vector2i(grid_position.x, (grid_position.y - 1 + (LevelModel::number_of_rows)) % (LevelModel::number_of_rows));
-	}
-
-	sf::Vector2i BodyPart::getNextPositionRight()
-	{
-		return sf::Vector2i((grid_position.x + 1) % (LevelModel::number_of_columns), grid_position.y);
-	}
-
-	sf::Vector2i BodyPart::getNextPositionLeft()
-	{
-		return sf::Vector2i((grid_position.x - 1 + LevelModel::number_of_columns) % (LevelModel::number_of_columns), grid_position.y);
-	}
-	void BodyPart::updatePosition()
-	{
-		bodypart_image->setPosition(getBodyPartScreenPosition());
-		bodypart_image->setRotation(getRotationAngle());
-		bodypart_image->update();
-	}
-
-	void BodyPart::render()
-	{
-		bodypart_image->render();
-	}
-	Direction BodyPart::getDirection()
-	{
-		return direction;
-	}
-
-	sf::Vector2i BodyPart::getPosition()
-	{
-		return grid_position;
-	}
-	void BodyPart::destroy()
-	{
-		delete (bodypart_image);
+		delete (snake_controller);
 	}
 }

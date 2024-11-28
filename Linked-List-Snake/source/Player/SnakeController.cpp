@@ -1,13 +1,17 @@
 #include "Player/SnakeController.h"
 #include "Global/ServiceLocator.h"
 #include "Level/LevelService.h"
+#include "Event/EventService.h"
+#include <iostream>
+#include <iostream>
 
 namespace Player
 {
-	using namespace Event;
 	using namespace LinkedList;
 	using namespace Global;
 	using namespace Level;
+	using namespace Event;
+	using namespace Time;
 
 	SnakeController::SnakeController()
 	{
@@ -30,6 +34,7 @@ namespace Player
 		float width = ServiceLocator::getInstance()->getLevelService()->getCellWidth();
 		float height = ServiceLocator::getInstance()->getLevelService()->getCellHeight();
 
+		reset();
 		single_linked_list->initialize(width, height, default_position, default_direction);
 	}
 
@@ -47,22 +52,7 @@ namespace Player
 			break;
 		}
 	}
-	void SnakeController::delayedUpdate()
-	{
-		elapsed_duration += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
-		if (elapsed_duration >= movement_frame_duration)
-		{
-			elapsed_duration = 0.f;
-			updateSnakeDirection();
-			processSnakeCollision();
-
-			if (current_snake_state != SnakeState::DEAD)
-				moveSnake();
-
-			current_input_state = InputState::WAITING;
-		}
-	}
 	void SnakeController::render()
 	{
 		single_linked_list->render();
@@ -97,9 +87,31 @@ namespace Player
 		}
 	}
 
-	void SnakeController::updateSnakeDirection() { }
+	void SnakeController::delayedUpdate()
+	{
+		elapsed_duration += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
-	void SnakeController::moveSnake() { }
+		if (elapsed_duration >= movement_frame_duration)
+		{
+			elapsed_duration = 0.f;
+			updateSnakeDirection();
+			processSnakeCollision();
+
+			if (current_snake_state != SnakeState::DEAD)
+				moveSnake();
+			current_input_state = InputState::WAITING;
+		}
+	}
+
+	void SnakeController::updateSnakeDirection()
+	{
+		single_linked_list->updateNodeDirection(current_snake_direction);
+	}
+
+	void SnakeController::moveSnake()
+	{
+		single_linked_list->updateNodePosition();
+	}
 
 	void SnakeController::processSnakeCollision()
 	{
@@ -109,11 +121,21 @@ namespace Player
 		}
 	}
 
-	
+	void SnakeController::handleRestart()
+	{
+		restart_counter += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
-	void SnakeController::spawnSnake() {
-		for (int i = 0; i < initial_snake_length; i++) {
-			single_linked_list->insertNodeAtTail();     // Insert nodes at tail to create the initial snake
+		if (restart_counter >= restart_duration)
+		{
+			respawnSnake();
+		}
+	}
+
+	void SnakeController::spawnSnake()
+	{
+		for (int i = 0; i < initial_snake_length; i++)
+		{
+			single_linked_list->insertNodeAtTail();
 		}
 	}
 
@@ -132,15 +154,7 @@ namespace Player
 		reset();
 		spawnSnake();
 	}
-	void SnakeController::handleRestart()
-	{
-		restart_counter += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
-		if (restart_counter >= restart_duration)
-		{
-			respawnSnake();
-		}
-	}
 	void SnakeController::setSnakeState(SnakeState state)
 	{
 		current_snake_state = state;

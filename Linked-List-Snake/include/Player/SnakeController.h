@@ -1,13 +1,11 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
-#include "Direction.h"
 #include "LinkedList/Node.h"
+#include "LinkedList/SingleLinkedList.h"
 #include "LinkedList/SingleLinkedList.h"
 
 namespace Player
 {
-	using namespace LinkedList;
-
 	enum class SnakeState
 	{
 		ALIVE,
@@ -27,20 +25,21 @@ namespace Player
 		const float movement_frame_duration = 0.1f;
 		const float restart_duration = 3.f;
 
-		SnakeState current_snake_state;
-
 		const sf::Vector2i default_position = sf::Vector2i(25, 13);
-		const Direction default_direction = Direction::RIGHT;
-		Direction current_snake_direction;
+		const LinkedList::Direction default_direction = LinkedList::Direction::RIGHT;
+
+		SnakeState current_snake_state;
+		float elapsed_duration;
+		float restart_counter;
+		LinkedList::Direction current_snake_direction;
 		InputState current_input_state;
 
-		float restart_counter;
-
 		LinkedList::SingleLinkedList* single_linked_list;
-		float elapsed_duration;
+
 		void createLinkedList();
 		void processPlayerInput();
 		void updateSnakeDirection();
+		void delayedUpdate();
 		void moveSnake();
 		void processSnakeCollision();
 		void handleRestart();
@@ -53,7 +52,6 @@ namespace Player
 
 		void initialize();
 		void update();
-		void delayedUpdate();
 		void render();
 
 		void spawnSnake();
