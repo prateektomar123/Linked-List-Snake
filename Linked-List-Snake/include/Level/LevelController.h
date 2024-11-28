@@ -5,6 +5,7 @@
 namespace Level
 {
     class LevelView;
+    using namespace Element;
 
     class LevelController
     {
@@ -22,5 +23,6 @@ namespace Level
 
         float getCellWidth();
         float getCellHeight();
+        const std::vector<ElementData>& getElementDataList(int level_to_load);
     };
 }

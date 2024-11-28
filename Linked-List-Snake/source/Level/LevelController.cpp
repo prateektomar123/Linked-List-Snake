@@ -1,9 +1,12 @@
 #include "Level/LevelController.h"
 #include "Level/LevelModel.h"
 #include "Level/LevelView.h"
+#include <Element/ElementService.h>
 
 namespace Level
 {
+	
+
 	LevelController::LevelController()
 	{
 		level_model = new LevelModel();
@@ -40,5 +43,10 @@ namespace Level
 	float LevelController::getCellHeight()
 	{
 		return level_model->getCellHeight();
+	}
+
+	const std::vector<ElementData>& LevelController::getElementDataList(int level_to_load)
+	{
+		return level_model->getElementDataList(level_to_load);
 	}
 }
