@@ -19,12 +19,16 @@ namespace Player
 	private:
 		const int initial_snake_length = 10;
 		const float movement_frame_duration = 0.1f;
+		const float restart_duration = 3.f;
 
 		SnakeState current_snake_state;
 
 		const sf::Vector2i default_position = sf::Vector2i(25, 13);
 		const Direction default_direction = Direction::RIGHT;
 		Direction current_snake_direction;
+
+
+		float restart_counter;
 
 		LinkedList::SingleLinkedList* single_linked_list;
 		float elapsed_duration;

@@ -39,9 +39,7 @@ namespace Player
 		{
 		case SnakeState::ALIVE:
 			processPlayerInput();
-			updateSnakeDirection();
-			processSnakeCollision();
-			moveSnake();
+			delayedUpdate();
 			break;
 
 		case SnakeState::DEAD:
@@ -103,7 +101,7 @@ namespace Player
 		}
 	}
 
-	void SnakeController::handleRestart() { }
+	
 
 	void SnakeController::spawnSnake() {
 		for (int i = 0; i < initial_snake_length; i++) {
@@ -111,11 +109,29 @@ namespace Player
 		}
 	}
 
-	void SnakeController::reset() {
+	void SnakeController::reset()
+	{
+		current_snake_state = SnakeState::ALIVE;
+		current_snake_direction = default_direction;
+		elapsed_duration = 0.f;
+		restart_counter = 0.f;
 	}
 
-	void SnakeController::respawnSnake() { }
+	void SnakeController::respawnSnake()
+	{
+		single_linked_list->removeAllNodes();
+		reset();
+		spawnSnake();
+	}
+	void SnakeController::handleRestart()
+	{
+		restart_counter += ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
+		if (restart_counter >= restart_duration)
+		{
+			respawnSnake();
+		}
+	}
 	void SnakeController::setSnakeState(SnakeState state)
 	{
 		current_snake_state = state;
