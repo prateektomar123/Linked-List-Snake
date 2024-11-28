@@ -36,5 +36,9 @@ namespace LinkedList
 		void render();
 		bool processNodeCollision();
 
+		void removeNodeAtHead();
+
+		void removeAllNodes();
+
 	};
 }
