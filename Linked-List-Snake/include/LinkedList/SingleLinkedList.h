@@ -53,6 +53,7 @@ namespace LinkedList
 		void insertNodeAtMiddle();
 		void removeAllNodes();
 		void removeNodeAtMiddle();
+		void removeNodeAtTail();
 		void updateNodePosition();
 		void updateNodeDirection(Direction direction_to_set);
 
