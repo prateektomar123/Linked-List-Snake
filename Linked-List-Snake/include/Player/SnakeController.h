@@ -56,6 +56,7 @@ namespace Player
 
 		void spawnSnake();
 		void respawnSnake();
+		std::vector<sf::Vector2i> getCurrentSnakePositionList();
 		void setSnakeState(SnakeState state);
 		SnakeState getSnakeState();
 	};

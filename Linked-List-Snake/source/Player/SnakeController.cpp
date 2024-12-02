@@ -154,6 +154,15 @@ namespace Player
 		reset();
 		spawnSnake();
 	}
+	std::vector<sf::Vector2i> SnakeController::getCurrentSnakePositionList()
+	{
+		return single_linked_list->getNodesPositionList();
+	}
+
+	std::vector<sf::Vector2i> PlayerService::getCurrentSnakePositionList()
+	{
+		return snake_controller->getCurrentSnakePositionList();
+	}
 
 	void SnakeController::setSnakeState(SnakeState state)
 	{

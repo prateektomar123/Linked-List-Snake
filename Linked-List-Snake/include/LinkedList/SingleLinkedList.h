@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
 #include "LinkedList/Node.h"
+#include <Player/Direction.h>
 
 namespace LinkedList
 {
@@ -31,6 +32,8 @@ namespace LinkedList
 		void removeAllNodes();
 		void updateNodePosition();
 		void updateNodeDirection(Direction direction_to_set);
+
+		std::vector<sf::Vector2i> getNodesPositionList();
 
 		bool processNodeCollision();
 		Node* getHeadNode();
