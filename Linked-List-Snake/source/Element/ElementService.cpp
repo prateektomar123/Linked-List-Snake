@@ -59,4 +59,19 @@ namespace Element
 		obstacle->initialize(position, cell_width, cell_height);
 		obstacle_list.push_back(obstacle);
 	}
+
+	bool ElementService::processElementsCollision(LinkedList::Node* head_node)
+	{
+		for (int i = 0; i < obstacle_list.size(); i++)
+		{
+			if (obstacle_list[i]->getObstaclePosition() == head_node->body_part.getNextPosition() ||
+				obstacle_list[i]->getObstaclePosition() == head_node->body_part.getPosition())
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 }

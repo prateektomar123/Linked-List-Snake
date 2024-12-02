@@ -7,6 +7,7 @@
 
 namespace Player
 {
+	using namespace Element;
 	using namespace LinkedList;
 	using namespace Global;
 	using namespace Level;
@@ -131,10 +132,65 @@ namespace Player
 
 	void SnakeController::processElementsCollision()
 	{
+		ElementService* element_service = ServiceLocator::getInstance()->getElementService();
+
+		if (element_service->processElementsCollision(single_linked_list->getHeadNode()))
+		{
+			current_snake_state = SnakeState::DEAD;
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::DEATH);
+		}
 	}
 
 	void SnakeController::processFoodCollision()
 	{
+		FoodService* food_service = ServiceLocator::getInstance()->getFoodService();
+		FoodType food_type;
+
+		if (food_service->processFoodCollision(single_linked_list->getHeadNode(), food_type))
+		{
+			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PICKUP);
+
+			food_service->destroyFood();
+			OnFoodCollected(food_type);
+		}
+	}
+
+	void SnakeController::OnFoodCollected(FoodType food_type)
+	{
+		switch (food_type)
+		{
+		case FoodType::PIZZA:
+			//Insert At Tail
+			break;
+
+		case FoodType::BURGER:
+			//Insert At Head
+			break;
+
+		case FoodType::CHEESE:
+			//Insert in Middle
+			break;
+
+		case FoodType::APPLE:
+			//Delete at Head
+			break;
+
+		case FoodType::MANGO:
+			//Delete at Middle
+			break;
+
+		case FoodType::ORANGE:
+			//Delete at Tail
+			break;
+
+		case FoodType::POISION:
+			//Delete half the snake
+			break;
+
+		case FoodType::ALCOHOL:
+			//Reverse the snake
+			break;
+		}
 	}
 
 	void SnakeController::handleRestart()

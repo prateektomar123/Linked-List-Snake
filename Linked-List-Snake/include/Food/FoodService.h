@@ -45,6 +45,7 @@ namespace Food
 		void destroyFood();
 		void updateElapsedDuration();
 		void handleFoodSpawning();
+		bool processFoodCollision(LinkedList::Node* head_node, FoodType& out_food_type);
 		void reset();
 
 	public:

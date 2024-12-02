@@ -2,7 +2,8 @@
 #include <SFML/System/Vector2.hpp>
 #include "LinkedList/Node.h"
 #include "LinkedList/SingleLinkedList.h"
-#include "LinkedList/SingleLinkedList.h"
+#include "Food/FoodType.h"
+
 
 namespace Player
 {
@@ -46,6 +47,8 @@ namespace Player
 		void processBodyCollision();
 		void processElementsCollision();
 		void processFoodCollision();
+
+		void OnFoodCollected(FoodType food_type);
 
 		void handleRestart();
 		void reset();
