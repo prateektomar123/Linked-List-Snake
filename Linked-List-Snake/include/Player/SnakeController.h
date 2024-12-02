@@ -42,6 +42,11 @@ namespace Player
 		void delayedUpdate();
 		void moveSnake();
 		void processSnakeCollision();
+
+		void processBodyCollision();
+		void processElementsCollision();
+		void processFoodCollision();
+
 		void handleRestart();
 		void reset();
 		void destroy();
@@ -56,8 +61,9 @@ namespace Player
 
 		void spawnSnake();
 		void respawnSnake();
-		std::vector<sf::Vector2i> getCurrentSnakePositionList();
 		void setSnakeState(SnakeState state);
 		SnakeState getSnakeState();
+
+		std::vector<sf::Vector2i> getCurrentSnakePositionList();
 	};
 }
