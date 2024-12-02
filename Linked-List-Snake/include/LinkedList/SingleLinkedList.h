@@ -21,6 +21,8 @@ namespace LinkedList
 		float node_width;
 		float node_height;
 
+		int linked_list_size;
+
 		sf::Vector2i default_position;
 		Direction default_direction;
 
@@ -39,6 +41,7 @@ namespace LinkedList
 		void render();
 
 		void insertNodeAtTail();
+		void insertNodeAtHead();
 		void removeNodeAtHead();
 		void removeAllNodes();
 		void updateNodePosition();
