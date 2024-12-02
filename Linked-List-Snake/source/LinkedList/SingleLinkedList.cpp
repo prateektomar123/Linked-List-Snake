@@ -126,7 +126,41 @@ namespace LinkedList
 		cur_node->next = new_node;
 		initializeNode(new_node, cur_node, Operation::TAIL);
 	}
+	Node* SingleLinkedList::findNodeAtIndex(int index)
+	{
+		int current_index = 0;
+		Node* cur_node = head_node;
+		Node* prev_node = nullptr;
 
+		while (cur_node != nullptr && current_index <= index)
+		{
+			prev_node = cur_node;
+			cur_node = cur_node->next;
+			current_index++;
+		}
+
+		return prev_node;
+	}
+	void SingleLinkedList::removeHalfNodes()
+	{
+		if (linked_list_size <= 1) return;
+		int half_length = linked_list_size / 2;
+		int new_tail_index = half_length - 1;
+
+		Node* prev_node = findNodeAtIndex(new_tail_index);
+		Node* cur_node = prev_node->next;
+
+		while (cur_node != nullptr)
+		{
+			Node* node_to_delete = cur_node;
+			cur_node = cur_node->next;
+
+			delete (node_to_delete);
+			linked_list_size--;
+		}
+
+		prev_node->next = nullptr;
+	}
 	void SingleLinkedList::insertNodeAtIndex(int index)
 	{
 		if (index < 0 || index >= linked_list_size) return;

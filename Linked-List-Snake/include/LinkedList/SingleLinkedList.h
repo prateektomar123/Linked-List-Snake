@@ -43,6 +43,8 @@ namespace LinkedList
 		void render();
 
 		void insertNodeAtTail();
+		Node* findNodeAtIndex(int index);
+		void removeHalfNodes();
 		void insertNodeAtIndex(int index);
 		void insertNodeAtHead();
 		void removeNodeAtHead();
