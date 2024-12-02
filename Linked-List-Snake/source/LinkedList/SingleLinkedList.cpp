@@ -167,6 +167,60 @@ namespace LinkedList
 		delete (cur_node);
 		linked_list_size--;
 	}
+
+	void SingleLinkedList::removeNodeAt(int index)
+	{
+		if (index < 0 || index >= linked_list_size) return;
+
+		if (index == 0)
+		{
+			removeNodeAtHead();
+		}
+		else
+		{
+			removeNodeAtIndex(index);
+		}
+	}
+	void SingleLinkedList::removeNodeAtIndex(int index)
+	{
+		int current_index = 0;
+		Node* cur_node = head_node;
+		Node* prev_node = nullptr;
+
+		while (cur_node != nullptr && current_index < index)
+		{
+			prev_node = cur_node;
+			cur_node = cur_node->next;
+			current_index++;
+		}
+
+		prev_node->next = cur_node->next;
+
+		shiftNodesAfterRemoval(cur_node);
+		delete(cur_node);
+		linked_list_size--;
+	}
+
+	void SingleLinkedList::shiftNodesAfterRemoval(Node* cur_node)
+	{
+		sf::Vector2i previous_node_position = cur_node->body_part.getPosition();
+		Direction previous_node_direction = cur_node->body_part.getDirection();
+		cur_node = cur_node->next;
+
+		while (cur_node != nullptr)
+		{
+			sf::Vector2i temp_node_position = cur_node->body_part.getPosition();
+			Direction temp_node_direction = cur_node->body_part.getDirection();
+
+			cur_node->body_part.setPosition(previous_node_position);
+			
+			cur_node->body_part.setDirection(previous_node_direction);
+
+			cur_node = cur_node->next;
+			previous_node_position = temp_node_position;
+			previous_node_direction = temp_node_direction;
+		}
+	}
 	int SingleLinkedList::findMiddleNode()
 	{
 		Node* slow = head_node;
@@ -201,6 +255,12 @@ namespace LinkedList
 		{
 			removeNodeAtHead();
 		}
+	}
+	void SingleLinkedList::removeNodeAtMiddle() {
+		if (head_node == nullptr) return; // If the list is empty, there's nothing to remove
+
+		int midIndex = findMiddleNode();  // Use the existing function to find the middle index
+		removeNodeAt(midIndex);           // Use the existing function to remove the node at the found index
 	}
 
 	Node* SingleLinkedList::createNode()
