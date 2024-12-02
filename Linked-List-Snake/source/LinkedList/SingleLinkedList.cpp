@@ -107,13 +107,14 @@ namespace LinkedList
 	}
 	void SingleLinkedList::insertNodeAtTail()
 	{
+		linked_list_size++;
 		Node* new_node = createNode();
 		Node* cur_node = head_node;
 
-		if (cur_node == nullptr) //If there is no head, then create a new head node
+		if (cur_node == nullptr)
 		{
 			head_node = new_node;
-			new_node->body_part.initialize(node_width, node_height, default_position, default_direction);
+			initializeNode(new_node, nullptr, Operation::TAIL);
 			return;
 		}
 
@@ -123,7 +124,7 @@ namespace LinkedList
 		}
 
 		cur_node->next = new_node;
-		new_node->body_part.initialize(node_width, node_height, getNewNodePosition(cur_node), cur_node->body_part.getDirection());
+		initializeNode(new_node, cur_node, Operation::TAIL);
 	}
 
 	void SingleLinkedList::removeNodeAtHead()
