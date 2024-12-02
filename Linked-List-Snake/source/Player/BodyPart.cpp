@@ -86,6 +86,13 @@ namespace Player
 		return sf::Vector2i(grid_position.x, (grid_position.y + 1) % (LevelModel::number_of_rows));
 	}
 
+	void BodyPart::setDirection(Direction direction)
+	{
+		previous_direction = this->direction;
+		this->direction = direction;
+	}
+
+
 	sf::Vector2i BodyPart::getNextPositionUp()
 	{
 		return sf::Vector2i(grid_position.x, (grid_position.y - 1 + (LevelModel::number_of_rows)) % (LevelModel::number_of_rows));
@@ -116,6 +123,11 @@ namespace Player
 		default:
 			return grid_position;
 		}
+	}
+
+	Direction BodyPart::getPreviousDirection()
+	{
+		return previous_direction;
 	}
 
 	float BodyPart::getRotationAngle()
