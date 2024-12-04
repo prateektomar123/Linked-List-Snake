@@ -1,11 +1,16 @@
 #pragma once
 #include <SFML/System/Vector2.hpp>
-#include "LinkedList/Node.h"
-#include "LinkedList/SingleLinkedList.h"
+#include "LinkedListLib/Node.h"
+#include "LinkedListLib/LinkedList.h"
 #include "Food/FoodType.h"
+#include "Level/LevelConfig.h"
 
 namespace Player
 {
+	using namespace Level;
+	using namespace Food;
+	using namespace LinkedListLib;
+
 	enum class TimeComplexity
 	{
 		NONE,
@@ -48,21 +53,22 @@ namespace Player
 		const int minimum_snake_size = 3;
 
 		const sf::Vector2i default_position = sf::Vector2i(25, 13);
-		const LinkedList::Direction default_direction = LinkedList::Direction::RIGHT;
+		const Direction default_direction = Direction::RIGHT;
 
 		SnakeState current_snake_state;
 		float elapsed_duration;
 		float restart_counter;
-		LinkedList::Direction current_snake_direction;
+		Direction current_snake_direction;
 		InputState current_input_state;
 
 		int player_score;
 		TimeComplexity time_complexity;
 		LinkedListOperations last_linked_list_operation;
 
-		LinkedList::SingleLinkedList* single_linked_list;
+		LinkedList* linked_list;
 
-		void createLinkedList();
+		void initializeLinkedList();
+
 		void processPlayerInput();
 		void updateSnakeDirection();
 		void delayedUpdate();
@@ -73,7 +79,7 @@ namespace Player
 		void processElementsCollision();
 		void processFoodCollision();
 
-		void OnFoodCollected(Food::FoodType food_type);
+		void OnFoodCollected(FoodType food_type);
 		int getRandomBodyPartIndex();
 
 		void handleRestart();
@@ -88,6 +94,7 @@ namespace Player
 		void update();
 		void render();
 
+		void createLinkedList(LinkedListType level_type);
 		void spawnSnake();
 		void respawnSnake();
 		void setSnakeState(SnakeState state);
@@ -97,6 +104,7 @@ namespace Player
 		TimeComplexity getTimeComplexity();
 		LinkedListOperations getLastOperation();
 		int getPlayerScore();
+		bool isSnakeDead();
 		int getSnakeSize();
 		bool isSnakeSizeMinimum();
 	};
