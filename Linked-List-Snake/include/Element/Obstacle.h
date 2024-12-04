@@ -15,16 +15,16 @@ namespace Element
         float cell_height;
 
         void initializeObstacleImage();
+        sf::Vector2f getObstacleImagePosition();
 
     public:
         Obstacle();
         ~Obstacle();
 
-        sf::Vector2f getObstacleImagePosition();
-
-        sf::Vector2i getObstaclePosition();
         void initialize(sf::Vector2i grid_pos, float width, float height);
         void update();
         void render();
+
+        sf::Vector2i getObstaclePosition();
     };
 }

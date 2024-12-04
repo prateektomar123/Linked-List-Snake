@@ -3,6 +3,7 @@
 #include "Food/FoodItem.h"
 #include "Level/LevelModel.h"
 #include "Player/PlayerService.h"
+#include <iostream>
 
 namespace Food
 {
@@ -57,6 +58,17 @@ namespace Food
 		reset();
 	}
 
+	bool FoodService::processFoodCollision(LinkedList::Node* head_node, FoodType& out_food_type)
+	{
+		if (current_food_item && current_food_item->getFoodPosition() == head_node->body_part.getPosition())
+		{
+			out_food_type = current_food_item->getFoodType();
+			return true;
+		}
+
+		return false;
+	}
+
 	FoodItem* FoodService::createFood(sf::Vector2i position, FoodType type)
 	{
 		FoodItem* food = new FoodItem();
@@ -95,7 +107,28 @@ namespace Food
 
 	FoodType FoodService::getRandomFoodType()
 	{
-		std::uniform_int_distribution<int> distribution(0, FoodItem::number_of_foods - 1);
+
+		if (ServiceLocator::getInstance()->getPlayerService()->isSnakeSizeMinimum())
+		{
+			int randomValue = std::rand() % (FoodItem::number_of_foods - FoodItem::number_of_healthy_foods);
+			return static_cast<FoodType>(randomValue);
+		}
+		else
+		{
+			int randomValue = std::rand() % (FoodItem::number_of_foods);
+			return static_cast<FoodType>(randomValue);
+		}
+
+
+
+		int food_upper_index;
+
+		if (!ServiceLocator::getInstance()->getPlayerService()->isSnakeSizeMinimum())
+			food_upper_index = FoodItem::number_of_foods - 5;
+		else
+			food_upper_index = FoodItem::number_of_foods - 1;
+
+		std::uniform_int_distribution<int> distribution(0, food_upper_index);
 
 		return static_cast<FoodType>(distribution(random_engine));
 	}
@@ -112,6 +145,7 @@ namespace Food
 	void FoodService::destroyFood()
 	{
 		if (current_food_item) delete(current_food_item);
+		current_food_item = nullptr;
 	}
 
 	void FoodService::updateElapsedDuration()
@@ -128,16 +162,7 @@ namespace Food
 			spawnFood();
 		}
 	}
-	bool FoodService::processFoodCollision(LinkedList::Node* head_node, FoodType& out_food_type)
-	{
-		if (current_food_item && current_food_item->getFoodPosition() == head_node->body_part.getPosition())
-		{
-			out_food_type = current_food_item->getFoodType();
-			return true;
-		}
 
-		return false;
-	}
 	void FoodService::reset()
 	{
 		elapsed_duration = 0.f;

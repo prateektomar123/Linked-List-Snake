@@ -7,12 +7,14 @@
 
 namespace Player
 {
-	using namespace Element;
 	using namespace LinkedList;
 	using namespace Global;
 	using namespace Level;
 	using namespace Event;
 	using namespace Time;
+	using namespace Sound;
+	using namespace Element;
+	using namespace Food;
 
 	SnakeController::SnakeController()
 	{
@@ -152,9 +154,9 @@ namespace Player
 
 			food_service->destroyFood();
 			OnFoodCollected(food_type);
-		}
 
-		player_score++;
+			player_score++;
+		}
 	}
 
 	void SnakeController::OnFoodCollected(FoodType food_type)
@@ -245,6 +247,8 @@ namespace Player
 		restart_counter = 0.f;
 		player_score = 0;
 		current_input_state = InputState::WAITING;
+		time_complexity = TimeComplexity::NONE;
+		last_linked_list_operation = LinkedListOperations::NONE;
 	}
 
 	void SnakeController::respawnSnake()
@@ -253,29 +257,20 @@ namespace Player
 		reset();
 		spawnSnake();
 	}
-	std::vector<sf::Vector2i> SnakeController::getCurrentSnakePositionList()
-	{
-		return single_linked_list->getNodesPositionList();
-	}
-
-	std::vector<sf::Vector2i> PlayerService::getCurrentSnakePositionList()
-	{
-		return snake_controller->getCurrentSnakePositionList();
-	}
 
 	void SnakeController::setSnakeState(SnakeState state)
 	{
 		current_snake_state = state;
 	}
 
-	int SnakeController::getPlayerScore()
-	{
-		return player_score;
-	}
-
 	SnakeState SnakeController::getSnakeState()
 	{
 		return current_snake_state;
+	}
+
+	int SnakeController::getPlayerScore()
+	{
+		return player_score;
 	}
 
 	TimeComplexity SnakeController::getTimeComplexity()
@@ -288,8 +283,32 @@ namespace Player
 		return last_linked_list_operation;
 	}
 
+	int SnakeController::getSnakeSize()
+	{
+		return single_linked_list->getLinkedListSize();
+	}
+
+
+	int SnakeController::getRandomBodyPartIndex()
+	{
+		return std::rand() % (single_linked_list->getLinkedListSize() - 1);
+	}
+
+	std::vector<sf::Vector2i> SnakeController::getCurrentSnakePositionList()
+	{
+		return single_linked_list->getNodesPositionList();
+	}
+
 	void SnakeController::destroy()
 	{
 		delete (single_linked_list);
 	}
+
+	bool SnakeController::isSnakeSizeMinimum()
+	{
+		if (single_linked_list->getLinkedListSize() <= minimum_snake_size)
+			return true;
+		return false;
+	}
+
 }

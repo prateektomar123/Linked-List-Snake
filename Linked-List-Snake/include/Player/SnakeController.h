@@ -4,7 +4,6 @@
 #include "LinkedList/SingleLinkedList.h"
 #include "Food/FoodType.h"
 
-
 namespace Player
 {
 	enum class TimeComplexity
@@ -45,7 +44,9 @@ namespace Player
 		const int initial_snake_length = 10;
 		const float movement_frame_duration = 0.1f;
 		const float restart_duration = 3.f;
-		int player_score;
+
+		const int minimum_snake_size = 3;
+
 		const sf::Vector2i default_position = sf::Vector2i(25, 13);
 		const LinkedList::Direction default_direction = LinkedList::Direction::RIGHT;
 
@@ -55,6 +56,7 @@ namespace Player
 		LinkedList::Direction current_snake_direction;
 		InputState current_input_state;
 
+		int player_score;
 		TimeComplexity time_complexity;
 		LinkedListOperations last_linked_list_operation;
 
@@ -71,7 +73,8 @@ namespace Player
 		void processElementsCollision();
 		void processFoodCollision();
 
-		void OnFoodCollected(FoodType food_type);
+		void OnFoodCollected(Food::FoodType food_type);
+		int getRandomBodyPartIndex();
 
 		void handleRestart();
 		void reset();
@@ -88,11 +91,13 @@ namespace Player
 		void spawnSnake();
 		void respawnSnake();
 		void setSnakeState(SnakeState state);
-		int getPlayerScore();
 		SnakeState getSnakeState();
 
+		std::vector<sf::Vector2i> getCurrentSnakePositionList();
 		TimeComplexity getTimeComplexity();
 		LinkedListOperations getLastOperation();
-		std::vector<sf::Vector2i> getCurrentSnakePositionList();
+		int getPlayerScore();
+		int getSnakeSize();
+		bool isSnakeSizeMinimum();
 	};
 }

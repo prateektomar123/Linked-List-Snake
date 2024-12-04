@@ -81,33 +81,6 @@ namespace Player
 		}
 	}
 
-	sf::Vector2i BodyPart::getNextPositionDown()
-	{
-		return sf::Vector2i(grid_position.x, (grid_position.y + 1) % (LevelModel::number_of_rows));
-	}
-
-	void BodyPart::setDirection(Direction direction)
-	{
-		previous_direction = this->direction;
-		this->direction = direction;
-	}
-
-
-	sf::Vector2i BodyPart::getNextPositionUp()
-	{
-		return sf::Vector2i(grid_position.x, (grid_position.y - 1 + (LevelModel::number_of_rows)) % (LevelModel::number_of_rows));
-	}
-
-	sf::Vector2i BodyPart::getNextPositionRight()
-	{
-		return sf::Vector2i((grid_position.x + 1) % (LevelModel::number_of_columns), grid_position.y);
-	}
-
-	sf::Vector2i BodyPart::getNextPositionLeft()
-	{
-		return sf::Vector2i((grid_position.x - 1 + LevelModel::number_of_columns) % (LevelModel::number_of_columns), grid_position.y);
-	}
-
 	sf::Vector2i BodyPart::getPrevPosition()
 	{
 		switch (direction)
@@ -125,9 +98,36 @@ namespace Player
 		}
 	}
 
-	Direction BodyPart::getPreviousDirection()
+	void BodyPart::setPosition(sf::Vector2i position)
 	{
-		return previous_direction;
+		grid_position = position;
+	}
+
+	void BodyPart::setDirection(Direction direction)
+	{
+		previous_direction = this->direction;
+		this->direction = direction;
+	}
+
+
+	sf::Vector2i BodyPart::getNextPositionDown()
+	{
+		return sf::Vector2i(grid_position.x, (grid_position.y + 1) % (LevelModel::number_of_rows));
+	}
+
+	sf::Vector2i BodyPart::getNextPositionUp()
+	{
+		return sf::Vector2i(grid_position.x, (grid_position.y - 1 + (LevelModel::number_of_rows)) % (LevelModel::number_of_rows));
+	}
+
+	sf::Vector2i BodyPart::getNextPositionRight()
+	{
+		return sf::Vector2i((grid_position.x + 1) % (LevelModel::number_of_columns), grid_position.y);
+	}
+
+	sf::Vector2i BodyPart::getNextPositionLeft()
+	{
+		return sf::Vector2i((grid_position.x - 1 + LevelModel::number_of_columns) % (LevelModel::number_of_columns), grid_position.y);
 	}
 
 	float BodyPart::getRotationAngle()
@@ -150,9 +150,9 @@ namespace Player
 		return direction;
 	}
 
-	void BodyPart::setDirection(Direction new_direction)
+	Direction BodyPart::getPreviousDirection()
 	{
-		direction = new_direction;
+		return previous_direction;
 	}
 
 	sf::Vector2i BodyPart::getPosition()

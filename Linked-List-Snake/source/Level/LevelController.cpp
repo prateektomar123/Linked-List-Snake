@@ -1,41 +1,51 @@
+#include "Level/LevelController.h"
 #include "Level/LevelModel.h"
-#include "Level/LevelService.h"
-#include "Element/ElementService.h"
+#include "Level/LevelView.h"
 
 namespace Level
 {
 	using namespace Element;
 
-	LevelModel::LevelModel() = default;
-
-	LevelModel::~LevelModel() = default;
-
-	void LevelModel::initialize(int width, int height)
+	LevelController::LevelController()
 	{
-		cell_width = static_cast<float>(width) / static_cast<float>(number_of_columns);
-		cell_height = static_cast<float>(height) / static_cast<float>(number_of_rows);
-
-		initializeLevelData();
+		level_model = new LevelModel();
+		level_view = new LevelView();
 	}
 
-	void LevelModel::initializeLevelData()
+	LevelController::~LevelController()
 	{
-		level_configurations.push_back(LevelData(Level::LevelNumber::ONE, &level_one_element_list));
-		level_configurations.push_back(LevelData(Level::LevelNumber::TWO, &level_two_element_list));
+		delete level_model;
+		delete level_view;
 	}
 
-	const std::vector<ElementData>& LevelModel::getElementDataList(int level_to_load)
+	void LevelController::initialize()
 	{
-		return *level_configurations[level_to_load].element_data_list;
+		level_view->initialize();
+		level_model->initialize(level_view->getGridWidth(), level_view->getGridHeight());
 	}
 
-	float LevelModel::getCellWidth()
+	void LevelController::update()
 	{
-		return cell_width;
+		level_view->update();
 	}
 
-	float LevelModel::getCellHeight()
+	void LevelController::render()
 	{
-		return cell_height;
+		level_view->render();
+	}
+
+	float LevelController::getCellWidth()
+	{
+		return level_model->getCellWidth();
+	}
+
+	float LevelController::getCellHeight()
+	{
+		return level_model->getCellHeight();
+	}
+
+	const std::vector<ElementData>& LevelController::getElementDataList(int level_to_load)
+	{
+		return level_model->getElementDataList(level_to_load);
 	}
 }

@@ -6,6 +6,7 @@
 #include "Global/Config.h"
 #include "Level/LevelModel.h"
 #include "Player/PlayerService.h"
+#include <Player/SnakeController.h>
 
 namespace UI
 {
