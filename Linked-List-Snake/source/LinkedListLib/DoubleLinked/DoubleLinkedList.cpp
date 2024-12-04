@@ -3,6 +3,7 @@
 #include "Level/LevelView.h"
 #include "Global/Config.h"
 #include <iostream>
+#include <Player/Node.h>
 
 namespace LinkedListLib
 {
@@ -109,6 +110,28 @@ namespace LinkedListLib
 
             cur_node->next = nullptr;
             delete cur_node;
+        }
+        void DoubleLinkedList::removeNodeAtTail()
+        {
+            if (head_node == nullptr) return;
+            linked_list_size--;
+
+            Node* cur_node = head_node;
+
+            if (cur_node->next == nullptr)
+            {
+                removeNodeAtHead();
+                return;
+            }
+
+            while (cur_node->next != nullptr)
+            {
+                cur_node = cur_node->next;
+            }
+
+            Node* previous = static_cast<DoubleNode*>(cur_node)->previous;
+            previous->next = nullptr;
+            delete (cur_node);
         }
     }
 }
