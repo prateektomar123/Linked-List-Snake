@@ -203,5 +203,14 @@ namespace LinkedListLib
                 previous_node_direction = temp_node_direction;
             }
         }
+        void DoubleLinkedList::removeAllNodes()
+        {
+            if (head_node == nullptr) return;
+
+            while (head_node != nullptr)
+            {
+                removeNodeAtHead();
+            }
+        }
     }
 }
